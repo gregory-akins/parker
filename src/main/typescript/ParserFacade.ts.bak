@@ -1,0 +1,17 @@
+/// <reference path="../../../node_modules/monaco-editor/monaco.d.ts" />
+
+import {InputStream, Token} from '../../../node_modules/antlr4/index.js'
+import {CqlLexer} from "../../main-generated/javascript/CqlLexer.js"
+
+function createLexer(input: String) {
+    const chars = new InputStream(input);
+    const lexer = new CqlLexer(chars);
+
+    lexer.strictMode = false;
+
+    return null;
+}
+
+export function getTokens(input: String) : typeof Token[] {
+     return createLexer(input).getAllTokens();
+}
