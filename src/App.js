@@ -24,6 +24,39 @@ function App() {
       },
     });
 
+    monaco.editor.onDidCreateModel(function (model) {
+      function validate() {
+        var textToValidate = model.getValue();
+
+        // return a list of markers indicating errors to display
+
+        // replace the below with your actual validation code which will build
+        // the proper list of markers
+
+        var markers = [
+          {
+            severity: monaco.MarkerSeverity.Error,
+            startLineNumber: 1,
+            startColumn: 1,
+            endLineNumber: 2,
+            endColumn: 20,
+            message: "hi there",
+          },
+        ];
+
+        // change mySpecialLanguage to whatever your language id is
+        monaco.editor.setModelMarkers(model, "mySpecialLanguage", markers);
+      }
+
+      var handle = null;
+      model.onDidChangeContent(() => {
+        // debounce
+        clearTimeout(handle);
+        handle = setTimeout(() => validate(), 500);
+      });
+      validate();
+    });
+
     // Define a new theme that contains only rules that match this language
     monaco.editor.defineTheme("cqlTheme", {
       base: "vs",
