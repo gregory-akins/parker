@@ -15,12 +15,7 @@ function App() {
     // Register a tokens provider for the language
     monaco.languages.setMonarchTokensProvider("cql", {
       tokenizer: {
-        root: [
-          [/\[error.*/, "custom-error"],
-          [/\[notice.*/, "custom-notice"],
-          [/\[info.*/, "custom-info"],
-          [/\[[a-zA-Z 0-9:]+\]/, "custom-date"],
-        ],
+        root: [],
       },
     });
 
@@ -84,15 +79,11 @@ function App() {
               monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
           },
           {
-            label: "ifelse",
+            label: "include",
             kind: monaco.languages.CompletionItemKind.Snippet,
-            insertText: [
-              "if (${1:condition}) {",
-              "\t$0",
-              "} else {",
-              "\t",
-              "}",
-            ].join("\n"),
+            insertText: ["include (${1:condition}) version () called "].join(
+              "\n"
+            ),
             insertTextRules:
               monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
             documentation: "If-Else Statement",
